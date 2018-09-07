@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 
 @main.route('/')
