@@ -37,3 +37,12 @@ one result
 Also I call the check_password() method to determine if the password entered in the form matches the hash or not
 
 '''
+
+@main.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+    '''
+    offers users the option to log out of the application
+    '''
