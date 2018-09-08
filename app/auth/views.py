@@ -5,6 +5,8 @@ from werkzeug.urls import url_parse
 from . import auth
 from .forms import LoginForm, RegistrationForm
 from app import db
+from datetime import datetime
+
 
 ##################Registration route section#############
 @auth.route('/register', methods = ['GET','POST'])
