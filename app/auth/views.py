@@ -1,42 +1,35 @@
-from . import main
-from flask import render_template
+from flask import render_template,request,flash,redirect,url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
+from . import auth
+from .forms import LoginForm
 
-@main.route('/')
-@login_required
-def index():
+'''
+The user log in is facilitated by Flask-Login's login_user() function, the value
+of the next query string argument is obtained. Flask provides a request variable that
+contains all the info that the client sent with the request.
+request.args attribute exposes the contents of the query string in a friendly dictionary format
+'''
 
-    title = 'Welcome to pitch'
-
-    return render_template('index.html', title= title)
-
-    '''
-    The user log in is facilitated by Flask-Login's login_user() function, the value
-    of the next query string argument is obtained. Flask provides a request variable that
-    contains all the info that the client sent with the request.
-    request.args attribute exposes the contents of the query string in a friendly dictionary format
-    '''
-
-@main.rouote('/login', methods=['GET','POST'])
-@login_required
+@auth.route('/login', methods=['GET','POST'])
+# @login_required
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_byusername=form.username.data.first()
+        user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
         login_user(user(user, remember = form.remember_me.data))
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc!= '':
-            next_page = url_for('index')
+            next_page = url_for('auth.index')
         return redirect(next_page)
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sig In', form = form)
+        return redirect(url_for('auth.index'))
+    return render_template('auth/login.html', title='Sig In', form = form)
     '''
     First step is to load the user from the db,then query 
     the db with the log in username to find the user.
@@ -49,10 +42,10 @@ def login():
     execute a query, when you only need to have
     one result
     Also I call the check_password() method to determine if the password entered in the form matches the hash or not
-    
+
     '''
 
-@main.route('/logout')
+@auth.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
