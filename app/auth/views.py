@@ -3,8 +3,40 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
 from . import auth
-from .forms import LoginForm
+from .forms import LoginForm, RegistrationForm
+from app import db
 
+##################Registration route section#############
+@auth.route('/register', methods = ['GET','POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successfull!')
+        return redirect(url_for('auth.login'))
+    return render_template('auth/register.html', title='Register', form=form)
+
+
+    '''
+    first I ensure that the user that invokes this route is
+    not logged in. Logic inside if validate_on_submit() creates a 
+    new user with the username, email and password provide, writes it to the db
+    and then redirects to the login prompt so that the user can ogin
+
+
+    '''
+##################End Registration route section#############
+
+
+
+
+
+############Log in section##############
 '''
 The user log in is facilitated by Flask-Login's login_user() function, the value
 of the next query string argument is obtained. Flask provides a request variable that
@@ -23,12 +55,11 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('invalid username or password')
             return redirect(url_for('auth.login'))
-        login_user(user(user, remember = form.remember_me.data))
+        login_user(user, remember = form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc!= '':
-            next_page = url_for('auth.index')
+            next_page = url_for('main.index')
         return redirect(next_page)
-        return redirect(url_for('auth.index'))
     return render_template('auth/login.html', title='Sig In', form = form)
     '''
     First step is to load the user from the db,then query 
@@ -44,11 +75,13 @@ def login():
     Also I call the check_password() method to determine if the password entered in the form matches the hash or not
 
     '''
+############End Log in section##############
+
 
 @auth.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
     '''
     offers users the option to log out of the application
