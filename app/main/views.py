@@ -5,6 +5,7 @@ from app.models import User
 from datetime import datetime
 from app import db
 
+
 @main.before_request
 def before_request():
     if current_user.is_authenticated:
@@ -31,7 +32,7 @@ def index():
 
 @main.route('/user/<username>')
 @login_required
-def user(username):
+def user_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = [
         {
@@ -44,3 +45,7 @@ def user(username):
     which works exactly like first() when there are results, and in case there 
     are no results it auto sends a 404 error back
     '''
+
+
+
+
