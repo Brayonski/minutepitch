@@ -30,21 +30,21 @@ def index():
 
     return render_template('index.html', title= title,posts=posts)
 
-@main.route('/user/<username>')
-@login_required
-def user_profile(username):
-    user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {
-            'author':user, 'body':'test Post#1'
-        }
-    ]
-    return render_template('profile/user_profile.html',posts=posts, user=user)
-    '''
-    i have used a variant of first() called fist_or_404()
-    which works exactly like first() when there are results, and in case there 
-    are no results it auto sends a 404 error back
-    '''
+# @main.route('/user/<username>')
+# @login_required
+# def user_profile(username):
+#     user = User.query.filter_by(username=username).first_or_404()
+#     posts = [
+#         {
+#             'author':user, 'body':'test Post#1'
+#         }
+#     ]
+#     return render_template('profile/user_profile.html',posts=posts, user=user)
+#     '''
+#     i have used a variant of first() called fist_or_404()
+#     which works exactly like first() when there are results, and in case there 
+#     are no results it auto sends a 404 error back
+#     '''
 
 
 
