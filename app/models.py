@@ -32,7 +32,7 @@ class User(UserMixin, db.Model):
     user by storing its unique identifier in Flask's
     user session.
     ''' 
-    @login.user_loader
+    @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
 
