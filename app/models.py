@@ -3,7 +3,8 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash,check_password_hash
 from hashlib import md5
-
+from time import time
+import jwt
 
 
 class User(UserMixin, db.Model):
@@ -33,9 +34,32 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
             digest, size)
+    '''
+    The new avatar() method of the User class returns the URL of the user's avatar image, 
+    scaled to the requested size in pixels.For users that don't have an avatar registered, an "identicon" image will be generated
+    The verify_reset_password_token() is a static method, which means that it can be invoked directly from the class
+    '''
+
+    def get_reset_password_token(self, expires_in=600):
+        return jwt.encode(
+        {'reset_password': self.id, 'exp': time() + expires_in},
+        app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    ''''
+    The get_reset_password_token() function generates a JWT token as a string.
+
+    '''
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
+
         '''
-        The new avatar() method of the User class returns the URL of the user's avatar image, 
-        scaled to the requested size in pixels.For users that don't have an avatar registered, an "identicon" image will be generated
+        If the token cannot be validated or is expired, an exception will be raised, and in that case I catch it to prevent the error, and then return None to the caller
         '''
     def __repr__(self):
         return '<User {}>'.format(self.username)
