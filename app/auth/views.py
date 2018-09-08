@@ -88,6 +88,25 @@ def logout():
     '''
     offers users the option to log out of the application
     '''
+###############Log out route end##############
+
+###############User_profile route end##############
+
+@auth.route('/user/<username>')
+@login_required
+def user_profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {
+            'author':user, 'body':'test Post#1'
+        }
+    ]
+    return render_template('profile/user_profile.html',posts=posts, user=user)
+    '''
+    i have used a variant of first() called fist_or_404()
+    which works exactly like first() when there are results, and in case there 
+    are no results it auto sends a 404 error back
+    '''
 
 @auth.route('/edit_profile', methods=['GET','POST'])
 @login_required
@@ -98,7 +117,7 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Your changes have been saved')
-        return redirect(url_for('auth.user_profile'))
+        return redirect(url_for('main.index'))
     elif request.method == 'GET':
         form.username.data  = current_user.username
         form.about_me.data = current_user.about_me
@@ -106,3 +125,5 @@ def edit_profile():
     '''
     If validate_on_submit() returns True the data is copied from the form into the user object and then writen the object to the database.
     '''
+
+    ###############End user profile route##############
