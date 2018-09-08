@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
 from werkzeug.urls import url_parse
 from . import auth
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm,EditProfileForm, RegistrationForm
 from app import db
 from datetime import datetime
 
@@ -87,4 +87,22 @@ def logout():
 
     '''
     offers users the option to log out of the application
+    '''
+
+@auth.route('/edit_profile', methods=['GET','POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved')
+        return redirect(url_for('auth.user_profile'))
+    elif request.method == 'GET':
+        form.username.data  = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('profile/edit_profile.html', title='Edit Profile', form=form)
+    '''
+    If validate_on_submit() returns True the data is copied from the form into the user object and then writen the object to the database.
     '''
