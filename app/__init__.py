@@ -1,27 +1,29 @@
 from flask import Flask
-from config import config_options
+from config import config_options,Config
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flask_mail import Mail
+# from flask_mail import Mail
 
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 login_manager = LoginManager()
-login_manager.login_vie = 'auth.login'
+login_manager.login_view = 'auth.login'
 
 '''
 The auth.login is the function(or endpoint) name for the login views
 '''
-mail = Mail(app)
+# mail = Mail()
 
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config_options[config_name])
+    app.config.from_object(Config)
+
     bootstrap.init_app(app)
     db.init_app(app)
-    mail.init_app(app)
+    # mail.init_app(app)
     # initializing flask login extension
     login_manager.init_app(app)
 
