@@ -1,21 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Hi, {{ current_user.username }}!</h1>
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.post.label }}<br>
-            {{ form.post(cols=32, rows=4) }}<br>
-            {% for error in form.post.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% for post in posts %}
-    <p>
-    {{ post.author.username }} says: <b>{{ post.body }}</b>
-    </p>
-    {% endfor %}
+{% for t in tech%}
+<div class="col-md-4">
+
+<div class="panel panel-info">
+<div class="panel-heading">
+<h1 class="panel-title">Technology</h1>
+
+</div>
+
+<div class="panel-body">
+<p style="color:black;">{{t.body}}</p>
+</div>
+<p class="foot">Posted by {{t.user.username}}  </p>
+<div class="panel-footer">
+<p><a href="/comments/{{t.id}}">Comment</a></p>
+
+<i class="fa fa-thumbs-up fa-2x">1</i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-down fa-2x">1</i>
+</div>
+</div>
+
+</div>
+{% endfor %}
 {% endblock %}
