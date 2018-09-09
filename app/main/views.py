@@ -1,10 +1,10 @@
 from flask import render_template,request,flash,redirect,url_for
 from . import main
 from flask_login import login_required,current_user
-from app.models import User,Pitch
+from app.models import User,Pitch,Comments
 from datetime import datetime
 from app import db
-from .forms import PostForm
+from .forms import PostForm,CommentForm
 
 @main.before_request
 def before_request():
@@ -27,28 +27,61 @@ def index():
         'body': 'The Avengers movie was so cool!'
     }
     ]
+    tech = Pitch.query.filter_by(category='Technology').all()
 
-    return render_template('index.html', title= title,posts=posts)
+    return render_template('index.html', title= title,posts=posts, tech=tech)
 
+@main.route('/cool')
+def posti():
+    
+    tech = Pitch.query.filter_by(category='Technology').all()
+
+    return render_template('posts.html', tech = tech)
 
 
 @main.route('/index', methods=['GET', 'POST'])
-@login_required
 def post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Pitch(body=form.post.data, author=current_user)
+        post = Pitch(body=form.post.data, author=current_user, category=form.category.data)
         db.session.add(post)
         db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('main.index'))
 
-    posts = current_user.followed_posts().all()
+    posts = Pitch.retrieve_posts(id).all()
 
-    return render_template("posts.html", title='Home Page', form=form,
-                           posts=posts)
+    return render_template("posts.html", title='Home Page', form=form,posts=posts)
+
+@main.route('/post', methods = ['GET','POST'])
+@login_required
+def new_post():
+   form = PostForm()
+   if form.validate_on_submit():
+       post = form.post.data
+       category = form.category.data
+       user = current_user
 
 
+       new_pitch = Pitch(body = post,category = category,user = user)
+
+       # save pitch
+       db.session.add(new_pitch)
+       db.session.commit()
+
+       return redirect(url_for('main.post',uname = user.username))
+
+   return render_template('post.html',form = form)
+
+@main.route('/technology' ,methods = ['GET','POST'])
+def technology():
+    tech = Pitch.query.filter_by(category = 'Technology').all()
+    print(tech)
+
+    if tech is None:
+        abort(404)
+
+    return render_template('technology.html', tech = tech)
 
 @main.route('/follow/<username>')
 @login_required
@@ -79,6 +112,33 @@ def unfollow(username):
     db.session.commit()
     flash('You are not following {}.'.format(username))
     return redirect(url_for('user', username=username))
+
+@main.route('/explore')
+@login_required
+def explore():
+    posts = Pitch.query.order_by(Pitch.timestamp.desc()).all()
+    return render_template('post.html', title='Explore', posts=posts)
+
+
+@main.route('/comments/<int:id>', methods = ['GET','POST'])
+@login_required
+def new_comment(id):
+    comment = Comments.query.filter_by(pitch_id=id).all()
+
+    form_comment = CommentForm()
+    if form_comment.validate_on_submit():
+        details = form_comment.details.data
+        user = current_user
+
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+        return redirect(url_for('main.index', uname = user.username))
+
+    return render_template('comments.html',form_comment = form_comment,comment=comment)
+
 # @login_required
 # def post():
 #     form = PostForm()
