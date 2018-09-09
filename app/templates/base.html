@@ -1,15 +1,19 @@
 {% extends 'bootstrap/base.html'%}
 
 <!-- Navbar block  --> 
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/font_awesome.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/framework.css')}}">
+
+    <link rel="stylesheet" href="{{url_for('static',filename='css/jquery.bxslider.css')}}">
+    
+    
+{% endblock %}
+
 {% block navbar %}
     {% include 'navbar.html' %}
 {% endblock %}
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-{% endwith %}
