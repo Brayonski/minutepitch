@@ -83,6 +83,15 @@ def technology():
 
     return render_template('technology.html', tech = tech)
 
+@main.route('/interview' ,methods = ['GET','POST'])
+def interview():
+    interview = Pitch.query.filter_by(category = 'Interview').all()
+
+    if interview is None:
+        abort(404)
+
+    return render_template('interview.html', interview = interview)
+
 @main.route('/follow/<username>')
 @login_required
 def follow(username):
