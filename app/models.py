@@ -55,7 +55,7 @@ class User(UserMixin, db.Model):
     The verify_reset_password_token() is a static method, which means that it can be invoked directly from the class
     '''
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '{}'.format(self.username)
     '''
     Flask-login keeps track of the logged in 
     user by storing its unique identifier in Flask's
@@ -86,7 +86,7 @@ class Pitch(db.Model):
     '''
 
     def __repr__(self):
-        return '<Pitch{}>'.format(self.body)
+        return '{}'.format(self.body)
 
         
 class Comments(db.Model):
@@ -95,4 +95,5 @@ class Comments(db.Model):
     details = db.Column(db.String(255))
     pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 
