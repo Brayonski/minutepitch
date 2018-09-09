@@ -2,17 +2,20 @@
 
 
 {% block content %}
+<body style="	background-image: url('static/images/bg.jpg');
+">
+    <div id="pageintro" class="hoc clear">
+      <article>
+        <p>Welcome to OneMinutePitch.</p>
+        <footer>
+          <ul class="nospace inline pushright">
+            <li><a class="btn" href="/posts">View Pitches</a></li>
+            <li><a class="btn inverse" href="{{url_for('auth.register')}}">Join us today</a></li>
+          </ul>
+        </footer>
+      </article>
+    </div>
+</body>
 
-  <div id="pageintro" class="hoc clear">
-    <article>
-      <p>Welcome to OneMinutePitch.</p>
-      <footer>
-        <ul class="nospace inline pushright">
-          <li><a class="btn" href="/posts">View Pitches</a></li>
-          <li><a class="btn inverse" href="{{url_for('auth.register')}}">Join us today</a></li>
-        </ul>
-      </footer>
-    </article>
-  </div>
 
 {% endblock %}
