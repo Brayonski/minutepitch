@@ -1,29 +1,11 @@
 
 @charset "utf-8";
-/*
-Template Name: Ossibird
-Author: <a href="http://www.os-templates.com/">OS Templates</a>
-Author URI: http://www.os-templates.com/
-Licence: Free to use under our free template licence terms
-Licence URI: http://www.os-templates.com/template-terms
-File: Layout CSS
-*/
 
 @import url("fontawesome-4.6.3.min.css");
 @import url("framework.css");
-
-/* Rows
---------------------------------------------------------------------------------------------------------------- */
-.row0, .row0 a{}
-.row1, .row1 a{}
-.row2, .row2 a{}
-.row3, .row3 a{}
-.row4, .row4 a{}
-.row5, .row5 a{}
-
-
-/* Top Bar + Header + Pageintro Wrapping Spacer
---------------------------------------------------------------------------------------------------------------- */
+body{
+	background-image: url('static/bg.jpg');
+}
 .topspacer{padding:80px 0;}
 
 
@@ -69,18 +51,6 @@ File: Layout CSS
 .cta{}
 .cta footer{margin-bottom:0;}/* Used when elements stack in small viewports */
 
-#latest{}
-#latest > ul{}
-#latest > ul > li{}
-#latest > ul > li:last-child{margin-bottom:0;}/* Used when elements stack in small viewports */
-#latest > ul > li > article{display:inline-block; width:100%; max-width:320px; border:1px solid;}
-#latest > ul > li > article > .postexcerpt{padding:20px 15px;}
-#latest > ul > li > article > .postexcerpt *{margin:0; padding:0;}
-#latest > ul > li > article > .postexcerpt .heading{margin-bottom:10px; font-size:1.2rem;}
-#latest > ul > li > article footer{border-top:1px solid;}
-#latest > ul > li > article footer a{display:block; position:relative; width:100%; height:39px; line-height:39px; padding:0 15px; text-transform:uppercase;}
-#latest > ul > li > article footer a::after{position:absolute; top:0; right:0; height:100%; padding:0 15px; font-family:"FontAwesome"; content:"\f105"; border-left:1px solid;}
-
 /* Comments */
 #comments ul{margin:0 0 40px 0; padding:0; list-style:none;}
 #comments li{margin:0 0 10px 0; padding:15px;}
@@ -103,35 +73,6 @@ File: Layout CSS
 .sidebar .sdb_holder:last-child{margin-bottom:0;}
 
 
-/* Footer
---------------------------------------------------------------------------------------------------------------- */
-#footer{padding:80px 0;}
-
-#footer .heading{margin-bottom:50px; font-size:1.2rem;}
-
-#footer nav{margin-bottom:30px; text-transform:uppercase;}
-#footer nav ul{}
-#footer nav ul li{display:inline-block; margin-right:20px;}
-#footer nav ul li:last-child{margin-right:0;}
-
-#footer .linklist li{display:block; margin-bottom:15px; padding:0 0 15px 0; border-bottom:1px solid;}
-#footer .linklist li:last-child{margin:0; padding:0; border:none;}
-#footer .linklist li::before, #footer .linklist li::after{display:table; content:"";}
-#footer .linklist li, #footer .linklist li::after{clear:both;}
-
-#footer .contact{}
-#footer .contact.linklist li, #footer .contact.linklist li:last-child{position:relative; padding-left:40px;}
-#footer .contact li *{margin:0; padding:0; line-height:1.6;}
-#footer .contact li i{display:block; position:absolute; top:0; left:0; width:30px; font-size:16px; text-align:center;}
-
-
-/* Copyright
---------------------------------------------------------------------------------------------------------------- */
-#copyright{padding:20px 0;}
-#copyright *{margin:0; padding:0;}
-
-
-/* Transition Fade
 --------------------------------------------------------------------------------------------------------------- */
 *, *::before, *::after{transition:all .3s ease-in-out;}
 #mainav form *{transition:none !important;}
@@ -248,14 +189,13 @@ td{border-width:0 1px;}
 
 /* Colours
 --------------------------------------------------------------------------------------------------------------- */
-body{color:#474747; background-color:#FFFFFF;}
+body{}
 a{color:#FE7831;}
 a:active, a:focus{background:transparent;}/* IE10 + 11 Bugfix - prevents grey background */
 hr, .borderedbox{border-color:#D7D7D7;}
 label span{color:#FF0000; background-color:inherit;}
 input:focus, textarea:focus, *:required:focus{border-color:#FE7831;}
 .overlay{color:#FFFFFF; background-color:inherit;}
-.overlay::after{color:inherit; background-color:rgba(39,39,39,.65);/* #272727 */}
 
 .btn, .btn.inverse:hover, a .icon.fa, a.inverse:hover .icon.fa{color:#FFFFFF; background-color:#FE7831; border-color:#FE7831;}
 .btn:hover, .btn.inverse, a:hover .icon.fa, a.inverse .icon.fa{color:inherit; background-color:transparent; border-color:inherit;}
@@ -404,3 +344,43 @@ table a, #comments a{background-color:inherit;}
 	.font-x2{font-size:1.4rem;}
 	.font-x3{font-size:1.6rem;}
 }
+
+
+
+
+
+
+
+
+a:hover { text-decoration:none; }
+.btn
+{
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+}
+.btn-read-more
+{
+    padding: 5px;
+    text-align: center;
+    border-radius: 0px;
+    display: inline-block;
+    border: 2px solid #662D91;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    color:#662D91;
+}
+
+.btn-read-more:hover
+{
+    color: #FFF;
+    background: #662D91;
+}
+.post { border-bottom:1px solid #DDD }
+.post-title {  color:#662D91; }
+.post .glyphicon { margin-right:5px; }
+.post-header-line { border-top:1px solid #DDD;border-bottom:1px solid #DDD;padding:5px 0px 5px 15px;font-size: 12px; }
+.post-content { padding-bottom: 15px;padding-top: 15px;}
