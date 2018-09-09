@@ -32,7 +32,7 @@ def index():
     return render_template('index.html', title= title,posts=posts, tech=tech)
 
 @main.route('/cool')
-def posti():
+def post():
     
     tech = Pitch.query.filter_by(category='Technology').all()
 
@@ -40,7 +40,7 @@ def posti():
 
 
 @main.route('/index', methods=['GET', 'POST'])
-def post():
+def home():
     form = PostForm()
     if form.validate_on_submit():
         post = Pitch(body=form.post.data, author=current_user, category=form.category.data)
@@ -75,13 +75,12 @@ def new_post():
 
 @main.route('/technology' ,methods = ['GET','POST'])
 def technology():
-    tech = Pitch.query.filter_by(category = 'Technology').all()
-    print(tech)
+    technology = Pitch.query.filter_by(category = 'Technology').all()
 
-    if tech is None:
+    if technology is None:
         abort(404)
 
-    return render_template('technology.html', tech = tech)
+    return render_template('technology.html', technology = technology)
 
 @main.route('/interview' ,methods = ['GET','POST'])
 def interview():
@@ -91,7 +90,15 @@ def interview():
         abort(404)
 
     return render_template('interview.html', interview = interview)
+    
+@main.route('/pickuplines' ,methods = ['GET','POST'])
+def pickuplines():
+    pickuplines = Pitch.query.filter_by(category = 'Pickuplines').all()
 
+    if pickuplines is None:
+        abort(404)
+
+    return render_template('pickuplines.html', pickuplines = pickuplines)
 @main.route('/follow/<username>')
 @login_required
 def follow(username):
