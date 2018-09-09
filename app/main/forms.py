@@ -5,7 +5,7 @@ from wtforms.validators import ValidationError, DataRequired
 
 class PostForm(FlaskForm):
     post = TextAreaField(('Say something'), validators=[DataRequired()])
-    category = SelectField('Category', choices=[('Technology','Technology'),('Sports','Sports'),('Religion','Religion')])
+    category = SelectField('Category', choices=[('Technology','Technology'),('BusinessPitch','Business Pitch'),('Sales','Sales'),('Interview','Interview')])
 
     submit = SubmitField(('Submit'))
 
