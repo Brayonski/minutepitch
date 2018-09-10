@@ -19,7 +19,3 @@ config_options = {
 'development':DevConfig,
 'production':ProdConfig
 }
-
-heroku addons:create heroku-postgresql -a mymoviedatab
-heroku config:set MAIL_PASSWORD=31834310 -a mymoviedatab
-heroku config:set MAIL_USERNAME=kibetedgar@gmail.com -a mymoviedatab
