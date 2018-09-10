@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!------ Include the above in your HEAD tag ---------->
+{% for post in sales %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12 post">
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 post-header-line">
+                            <span class="glyphicon glyphicon-user"></span>by <a href="#">{{post.user}}</a> | <span class="glyphicon glyphicon-calendar">
+                            </span>Sept 16th, 2012 | <span class="glyphicon glyphicon-comment"></span><a href="/comments/{{post.id}}">
+                                Add Comments</a> | <i class="icon-thumbup"></i><a href="#"></a> | <span class="glyphicon glyphicon-tags">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="row post-content">
+                        <div class="col-md-3">
+                            <a href="#">
+                                <img src="http://4.bp.blogspot.com/-_lqoNpVXeU4/UkxQ7N-QW8I/AAAAAAAACTw/pni-TZyp17o/s1600/cool+share+button+effects+styles.png" alt="" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+                            <p>
+                                {{post.body}}
+                            <p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

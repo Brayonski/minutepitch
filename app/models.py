@@ -7,10 +7,7 @@ from time import time
 import jwt
 from app import create_app
 
-followers = db.Table('followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
-)
+
 '''
 auxiliary table that has no data other than the foreign keys, I created it without an associated model class.
 '''
