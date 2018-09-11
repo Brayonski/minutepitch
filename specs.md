@@ -1,50 +1,46 @@
-# <p align="center">News Web App
-This is a News Website App that is primarily concerned with making its users get information and updates about latest happenings around the globe(world).
+# <p align="center">One Minute Pitch
+One minute pitch is an interactive app whereby users can share on their creative pitches.
+
+Last modified: **11th September 2018**
+
+Version: **1.0 **
+
+
+## Table of Contents ##
+- [Introduction](#1-introduction)
+- [System Overview](#2-system-overview)
+- [Future Directions and Open Questions](#2.3-future-directions-and-open-questions)
+
+## **1. Introduction**
+* **1.1. Scope**
+    + This document describes an interactive app whereby users can share on their creative pitches 
+* **1.2. Goals**
+
+   1. Give pitches to the public - Pickuplines,Business, entertainment, technology.
+   2. Easier accessibility.
 
 
 
-## Features
-- The home page presents users with all available news sources.
-- To view articles from a preferred source the user has to click on that source
-- User can opt to use the navbar which presents a more organized drodown of available sources repective of category.
-- Users can also choose to read articles from top headlines.
-- For further explanation check on [Spec.md](https://github.com/EKibet/NewsHighlights/blob/master/specs.md)
+## **2. System overview**
 
 
-## Behavior Driven Development
-| Input            | Behaviour                         | Output                        |
-| ------------------- | ----------------------------- | ----------------------------- |
-| Data from index mark up | Homepage loads | Displays all news sources |
-| Click on any news source| New page loads | All articles from the souce gets displayed|
-|Click on read more | New page loads | Redirects to the specific article page  |
+       **Minimum Requirements(if working on a local environment)**
+    1. Fair/Good internet connection.
+    2. Before Running this Project
+      i. run  > pip install -r requirements.txt.
 
-
-## View Live Site here
-View the complete site [here](https://newshighlightsapiapp.herokuapp.com/)
-
-
-## Technologies Used
-    - Python 3.6
-    - Flask Framework
-    - HTML, CSS and Bootstrap
-    - JavaScript
-    - Git
-
-
-## Set-up and Installation
+  
+      Steps
     1. Clone or download the Repo
     2. Create a virtual environment
     3. Read the specs and requirements files and Install all the requirements.
-    4. Edit the start.sh file with your api key from the news.org website   
+    4. Edit the start.sh file with your email account and password 
     6. Run chmod a+x start.py
     7. Run ./start.py
     8. Access the application through `localhost:5000`
+      **You can also choose to use the live link**
+* **2.3. Future Directions and Open Questions**
 
-## Known bugs
- No known bugs until now, if you encounter any issues Hola me on [kibetedgar@gmail.com](Edgar).
-
-
- ## Licence
-
-This software is Licenced under MIT Licence
-Copyright 2018 [Edgar](https://opensource.org)
+   In the discussion of future directions and open questions, it is important to remember that
+   This app has been designed to allow a large amount of flexibility for many different future use cases. This is because it is implemented using an approved Python(FLASK) app structure.
+   Any suggestions and changes are welcomed

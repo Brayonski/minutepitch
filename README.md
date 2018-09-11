@@ -1,5 +1,5 @@
 # <p align="center">One Minute Pitch
-This app is primarily concerned with making its users on point 
+One minute pitch is an interactive app whereby users can share on their creative pitches
 
 
 
@@ -7,7 +7,7 @@ This app is primarily concerned with making its users on point
 - The home page presents users with all available navigation to various pitch categories.
 - To view a pitches of a specific category the user has to click on that category
 - The system flow is simple.
-- For further explanation check on [Spec.md](https://github.com/EKibet/NewsHighlights/blob/master/specs.md)
+- For further explanation check on [Spec.md](https://github.com/EKibet/minutepitch/blob/master/specs.md)
 
 
 ## Behavior Driven Development
@@ -17,7 +17,7 @@ This app is primarily concerned with making its users on point
 | Click on any category| New page loads | All pitches from the category gets displayed|
 
 ## View Live Site here
-View the complete site [here](https://newshighlightsapiapp.herokuapp.com/)
+View the complete site [here](https://oneminitpitch.herokuapp.com/)
 
 
 ## Technologies Used
@@ -32,7 +32,7 @@ View the complete site [here](https://newshighlightsapiapp.herokuapp.com/)
     1. Clone or download the Repo
     2. Create a virtual environment
     3. Read the specs and requirements files and Install all the requirements.
-    4. Edit the start.sh file with your api key from the news.org website   
+    4. Edit the start.sh file with your email account and password 
     6. Run chmod a+x start.py
     7. Run ./start.py
     8. Access the application through `localhost:5000`
