@@ -130,10 +130,7 @@ def new_comment(id):
         db.session.add(new_comment)
         db.session.commit()
 
-        return redirect(url_for('main.index', uname = user.username))
-    
-
-    return render_template('comments.html',form_comment = form_comment,comment=comment)
+    return render_template('pickuplines.html',form_comment = form_comment,comment=comment,uname = user.username)
 
 # @login_required
 # def post():
