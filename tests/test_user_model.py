@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import unittest
-from app import app, db
-from app.models import User, Post
+from .app import db
+from app.models import User, Pitch
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
@@ -17,3 +17,4 @@ class UserModelCase(unittest.TestCase):
         u.set_password('1234')
         self.assertFalse(u.check_password('pass123'))
         self.assertTrue(u.check_password('1234'))
+
