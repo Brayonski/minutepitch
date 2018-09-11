@@ -11,7 +11,8 @@ class Config:
     
 class ProdConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("HEROKU_POSTGRESQL_COPPER_URL")
-    pass    
+    pass   
+     
 class DevConfig(Config):
     # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://yego:pass123@localhost/minutepitch'
     DEBUG = True
