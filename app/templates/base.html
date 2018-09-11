@@ -7,12 +7,13 @@
 
     <link rel="stylesheet" href="{{url_for('static',filename='css/font_awesome.css')}}">
     <link rel="stylesheet" href="{{url_for('static',filename='css/framework.css')}}">
+    <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
 
-    <link rel="stylesheet" href="{{url_for('static',filename='css/jquery.bxslider.css')}}">
     
     
 {% endblock %}
-
+<body class="body_wrapper">
 {% block navbar %}
     {% include 'navbar.html' %}
 {% endblock %}
+</body>

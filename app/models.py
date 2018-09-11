@@ -8,10 +8,6 @@ import jwt
 from app import create_app
 
 
-'''
-auxiliary table that has no data other than the foreign keys, I created it without an associated model class.
-'''
-
 class User(UserMixin, db.Model):
     '''
     UserMixin class that includes generic implementations

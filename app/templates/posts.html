@@ -7,7 +7,7 @@
     <a href="{{url_for('main.post')}}">Add a post</a>
 
 </div>
-{% for post in technology %}
+{% for post in posts %}
 <div class="container">
     <div class="row">
         <div class="col-md-9">
@@ -24,10 +24,6 @@
                         </div>
                     </div>
                     <div class="row post-content">
-                        <div class="col-md-3">
-                            <a href="#">
-                            </a>
-                        </div>
                         <div class="col-md-9">
                             <p>
                                 {{post.body}}

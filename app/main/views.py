@@ -31,12 +31,7 @@ def index():
 
     return render_template('index.html', title= title,posts=posts, tech=tech)
 
-@main.route('/cool')
-def post():
-    
-    tech = Pitch.query.filter_by(category='Technology').all()
 
-    return render_template('posts.html', tech = tech)
 
 
 @main.route('/index', methods=['GET', 'POST'])
@@ -55,7 +50,7 @@ def home():
 
 @main.route('/post', methods = ['GET','POST'])
 @login_required
-def new_post():
+def post():
    form = PostForm()
    if form.validate_on_submit():
        post = form.post.data
@@ -69,7 +64,7 @@ def new_post():
        db.session.add(new_pitch)
        db.session.commit()
 
-       return redirect(url_for('main.post',uname = user.username))
+       return redirect(url_for('main.explore',uname = user.username))
 
    return render_template('post.html',form = form)
 
@@ -93,12 +88,23 @@ def interview():
     
 @main.route('/pickuplines' ,methods = ['GET','POST'])
 def pickuplines():
+
+    form = CommentForm()
+    if form.validate_on_submit():
+        details = form.details.data
+        user = current_user
+
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
     pickuplines = Pitch.query.filter_by(category = 'Pickuplines').all()
 
     if pickuplines is None:
         abort(404)
 
-    return render_template('pickuplines.html', pickuplines = pickuplines)
+    return render_template('pickuplines.html', pickuplines = pickuplines,form=form)
 
 
     
@@ -106,7 +112,7 @@ def pickuplines():
 @login_required
 def explore():
     posts = Pitch.query.order_by(Pitch.timestamp.desc()).all()
-    return render_template('post.html', title='Explore', posts=posts)
+    return render_template('posts.html', title='Explore', posts=posts)
 
 
 @main.route('/comments/<int:id>', methods = ['GET','POST'])
