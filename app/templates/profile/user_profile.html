@@ -1,38 +1,39 @@
-{% extends "base.html" %}
+{% extends 'base.html'%}
 
 {% block content %}
-    <table>
-        <tr valign="top">
-            <td><img src="{{ user.avatar(128) }}"></td>
-            <td>
-                <h1>User: {{ user.username }}</h1>
-                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
-            </td>
-        </tr>
-    </table>
-    <hr>
-    {% for post in posts %}
-    <table>
-        <tr valign="top">
-            <td><img src="{{ post.author.avatar(36) }}"></td>
-            <td>{{ post.author.username }} says:<br>{{ post.body }}</td>
-        </tr>
-    </table>
-    {% endfor %}
-    {% if user == current_user %}
-    <p><a href="{{ url_for('auth.edit_profile') }}">Edit your profile</a></p>
-    {% endif %}
+<div class="container">
+<div class="row">
+<!-- displaying  Username-->
+  <div class="col-md-4">
+    <h3> {{user.username| capitalize}} </h3>
 
-    <h1>User: {{ user.username }}</h1>
-    {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
-    {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
-    <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
-    {% if user == current_user %}
-    <p><a href="{{ url_for('auth.edit_profile') }}">Edit your profile</a></p>
-    {% elif not current_user.is_following(user) %}
-    <p><a href="{{ url_for('follow', username=user.username) }}">Follow</a></p>
-    {% else %}
-    <p><a href="{{ url_for('unfollow', username=user.username) }}">Unfollow</a></p>
+    <!--Displaying user bio-->
+    {% if user.bio %}
+      <p> {{user.bio}}</p>
+    {%else%}
+      <p> {{user.username| capitalize}} has no bio </p>
     {% endif %}
+  </div>
+
+  <!--Display profile photo-->
+  <div class="col-md-4">
+
+    {% if user.profile_pic_path %}
+    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+    {%else%}
+    <p>No profile picture</p>
+    {% endif %}
+  </div>
+
+  <!-- edit profile -->
+  {% if user == current_user %}
+  <form  action="{{url_for('main.update_pic',username=user.username)}}" method="post" enctype = "multipart/form-data">
+
+    <input type="file"  name="photo" class="form-control" required>
+    <input type="submit">
+  </form>
+  {% endif %}
+</div>
+
+</div>
 {% endblock %}

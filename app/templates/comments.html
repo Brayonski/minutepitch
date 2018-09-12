@@ -6,7 +6,7 @@
 
   {{wtf.quick_form(form_comment)}}
 
-    {% for c in comment%}
+    {% for item in comment%}
 <div class="prof">
 <div class="col-lg-3">
 
@@ -17,9 +17,9 @@
 </div>
 
     <div class="panel-body" id="comment">
-<h1><p>"{{c.details}}"</p></h1>
+<h1><p>"{{item.details}}"</p></h1>
     </div>
-<p>Commented by {{c.user.username}}</p>
+<p>Commented by {{item.user.username}}</p>
 
         </div>
 </div>

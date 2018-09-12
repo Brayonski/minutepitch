@@ -7,7 +7,8 @@
             <ul class="nospace">
               <li><a href="index.html"><i class="fa fa-lg fa-home"></i></a></li>
               {% if current_user.is_authenticated %}
-
+              <li><a href="{{url_for('auth.user_profile',username=current_user.username)}}">Profile</a></li>
+              <li style="color:white;padding:15px;">{{current_user.username}}</li>
               <link rel="stylesheet" href="{{url_for('static',filename='css/font_awesome.css')}}">
               <a href="{{url_for('auth.logout')}}" class="sign">Sign out</a>
               {% else %}
