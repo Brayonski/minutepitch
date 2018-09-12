@@ -123,7 +123,7 @@ def edit_profile():
         return redirect(url_for('main.index'))
     elif request.method == 'GET':
         form.username.data  = current_user.username
-        form.about_me.data = current_user.about_me
+        form.about_me.data = current_user.bio
     return render_template('profile/edit_profile.html', title='Edit Profile', form=form)
     '''
     If validate_on_submit() returns True the data is copied from the form into the user object and then writen the object to the database.
