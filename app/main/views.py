@@ -3,7 +3,7 @@ from . import main
 from flask_login import login_required,current_user
 from app.models import User,Pitch,Comments
 from datetime import datetime
-from app import db
+from app import db, photos
 from .forms import PostForm,CommentForm
 
 @main.before_request
@@ -68,23 +68,73 @@ def post():
 
    return render_template('post.html',form = form)
 
+
+@main.route('/post/<int:id>', methods = ['GET','POST'])
+@login_required
+def user_post(id):
+
+    users_post = Pitch.query.filter_by(user_id=id).all()
+    return render_template('user_posts.html',users_post = users_post)
+
 @main.route('/technology' ,methods = ['GET','POST'])
 def technology():
     technology = Pitch.query.filter_by(category = 'Technology').all()
+    form = CommentForm()
+    if form.validate_on_submit():
+        details = form.details.data
+        user = current_user
 
-    if technology is None:
-        abort(404)
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
 
-    return render_template('technology.html', technology = technology)
+    return render_template('technology.html', technology = technology,form=form)
+
+@main.route('/sales' ,methods = ['GET','POST'])
+def technolog():
+    sales = Pitch.query.filter_by(category = 'sales').all()
+    form = CommentForm()
+    if form.validate_on_submit():
+        details = form.details.data
+        user = current_user
+
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return render_template('sales.html', technology = technology,form=form)
 
 @main.route('/interview' ,methods = ['GET','POST'])
 def interview():
     interview = Pitch.query.filter_by(category = 'Interview').all()
 
-    if interview is None:
-        abort(404)
+    form = CommentForm()
+    if form.validate_on_submit():
+        details = form.details.data
+        user = current_user
 
-    return render_template('interview.html', interview = interview)
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return render_template('interview.html', interview = interview,form=form)
+@main.route('/interview' ,methods = ['GET','POST'])
+def business():
+    business = Pitch.query.filter_by(category = 'business').all()
+    form = CommentForm()
+    if form.validate_on_submit():
+        details = form.details.data
+        user = current_user
+
+        new_comment = Comments(details = details,pitch_id=id,user =user)
+        # # save comment
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return render_template('business.html', business = business,form=form)
     
 @main.route('/pickuplines' ,methods = ['GET','POST'])
 def pickuplines():
@@ -123,14 +173,23 @@ def new_comment(id):
     form_comment = CommentForm()
     if form_comment.validate_on_submit():
         details = form_comment.details.data
-        user = current_user
 
-        new_comment = Comments(details = details,pitch_id=id,user =user)
+        new_comment = Comments(details = details,pitch_id=id,user=current_user)
         # # save comment
         db.session.add(new_comment)
         db.session.commit()
 
-    return render_template('pickuplines.html',form_comment = form_comment,comment=comment,uname = user.username)
+    return render_template('comments.html',form_comment = form_comment,comment=comment)
+@main.route('/user/<username>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(username):
+    user = User.query.filter_by(username = username).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('auth.user_profile',username=username))    
 
 # @login_required
 # def post():
@@ -152,21 +211,21 @@ def new_comment(id):
 #                            pitches=pitches.items, next_url=next_url,
 #                            prev_url=prev_url)
 
-# @main.route('/user/<username>')
-# @login_required
-# def user_profile(username):
-#     user = User.query.filter_by(username=username).first_or_404()
-#     posts = [
-#         {
-#             'author':user, 'body':'test Post#1'
-#         }
-#     ]
-#     return render_template('profile/user_profile.html',posts=posts, user=user)
-#     '''
-#     i have used a variant of first() called fist_or_404()
-#     which works exactly like first() when there are results, and in case there 
-#     are no results it auto sends a 404 error back
-#     '''
+@main.route('/user/<username>')
+@login_required
+def user_profile(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {
+            'author':user, 'body':'test Post#1'
+        }
+    ]
+    return render_template('profile/user_profile.html',posts=posts, user=user)
+    '''
+    i have used a variant of first() called fist_or_404()
+    which works exactly like first() when there are results, and in case there 
+    are no results it auto sends a 404 error back
+    '''
 
 
 
