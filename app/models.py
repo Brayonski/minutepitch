@@ -57,7 +57,14 @@ class User(UserMixin, db.Model):
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
 
+    @classmethod
+    def get_user(cls,id):
+        users = User.query.filter_by(User.id=id).all()
+        return users
 class Pitch(db.Model):
     __tablename__= 'pitches'
     id = db.Column(db.Integer, primary_key=True)

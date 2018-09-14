@@ -17,6 +17,7 @@ def before_request():
 def index():
 
     title = 'Welcome to woo'
+'test':TestConfig
     posts = [
     {
         'author': {'username': 'John'},

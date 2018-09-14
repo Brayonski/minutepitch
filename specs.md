@@ -39,6 +39,7 @@ Version: **1.0 **
     7. Run ./start.py
     8. Access the application through `localhost:5000`
       **You can also choose to use the live link**
+      
 * **2.3. Future Directions and Open Questions**
 
    In the discussion of future directions and open questions, it is important to remember that
