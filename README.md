@@ -16,7 +16,7 @@ One minute pitch is an interactive app whereby users can share on their creative
     + The home page presents users with all available navigation to various pitch categories.
     + To view a pitches of a specific category the user has to click on that category
     + The system flow is simple.
-    + For further explanation check on [Spec.md](https://github.com/EKibet/minutepitch/blob/master/specs.md)
+For further explanation check on [Spec.md](https://github.com/EKibet/minutepitch/blob/master/specs.md)
 
 
 ## Behavior Driven Development
@@ -26,7 +26,7 @@ One minute pitch is an interactive app whereby users can share on their creative
 | Click on any category| New page loads | All pitches from the category gets displayed|
 
 ## View Live Site here
-    View the complete site [here](https://oneminitpitch.herokuapp.com/)
+View the complete site [here](https://oneminitpitch.herokuapp.com/)
 
 
 ## Technologies Used
@@ -47,10 +47,10 @@ One minute pitch is an interactive app whereby users can share on their creative
     8. Access the application through `localhost:5000`
 
 ## Known bugs
-    No known bugs until now, if you encounter any issues Hola me on [kibetedgar@gmail.com](Edgar).
+No known bugs until now, if you encounter any issues Hola me on [kibetedgar@gmail.com](kibetedgar@gmail.com).
 
 
  ## Licence
 
-    This software is Licenced under MIT Licence
-    Copyright 2018 [Edgar](https://opensource.org)
+This software is Licenced under MIT Licence
+Copyright 2018 [Edgar](https://opensource.org)
